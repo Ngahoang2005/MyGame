@@ -1,0 +1,37 @@
+# depslib dependency file v1.0
+1712249104 source:d:\hoc cpp\btl_thanhnga\main.cpp
+	<iostream>
+	<cstdlib>
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	"graphics.h"
+	"defs.h"
+	"game.h"
+	<ctime>
+
+1712246840 d:\hoc cpp\btl_thanhnga\graphics.h
+	<SDL.h>
+	<SDL_image.h>
+	"defs.h"
+	<vector>
+
+1712249078 d:\hoc cpp\btl_thanhnga\defs.h
+
+1712248994 d:\hoc cpp\btl_thanhnga\game.h
+	"graphics.h"
+	<iostream>
+	<ctime>
+	<cstdlib>
+	<cmath>
+
+1712246158 source:d:\hoc cpp\btl_thanhnga\tuivang.cpp
+	<iostream>
+	<cstdlib>
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	"graphics.h"
+	"game.h"
+	<ctime>
+
