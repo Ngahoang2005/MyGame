@@ -8,13 +8,21 @@
 
 int timepassed=SDL_GetTicks();
 struct Game{
-    int myblood=FULL_BLOOD;
+    int FULL_BLOOD=1000;
+    int myblood=1000;
     int mystrength=STRENGTH;
     int hoanh=SCREEN_WIDTH/2;
     int tung=SCREEN_HEIGHT/2;
-    int exp =level*100;
+    int deltaexp=1;
+    int exp=0;
     int level=1;
 
+    bool levelup ()
+    {
+        if(exp>=level*10)
+            return true;
+        else return false;
+    }
    void hienthanhmau(Graphics &graphics,SDL_Texture *texture)
     {
         SDL_Rect printplace={30,30,500,25};
@@ -28,8 +36,6 @@ struct Game{
             if(100-5*(j-1)>=i&&i>100-5*j)
             {
                 SDL_Rect a={0,5*(j-1),100,5};
-
-
                 graphics.blitRect2(texture,&a,printplace);
                 break;
             }
@@ -39,14 +45,14 @@ struct Game{
 struct Mouse {
     float x,y;
     float dx = 0, dy = 0;
-    float speed = 17;
+    float speed = 12.5;
     void dichuyen() {
-        x += dx;
-        y += dy;
+        x += dx*17/25;
+        y += dy*17/25;
     }
     void tiengan() {
-        x-=dx*25/17;
-        y-=dy*25/17;
+        x-=dx;
+        y-=dy;
     }
     void turnNorth() {
         dy = -speed;
@@ -76,7 +82,6 @@ struct Treasure{
    void createtreasure(Graphics & graphics,SDL_Texture *texture,SDL_Rect &dest)
     {
         SDL_RenderCopy(graphics.renderer, texture, NULL, &dest);
-      //  graphics.presentScene();
    }
 };
 
@@ -92,21 +97,14 @@ struct Exp
 
 struct Monster
 {
-    int yourblood=100;
-    int yourstrength=strength;
-    int speed=100;
-
-    void createmonster(Graphics &graphics)
+    int monblood=700;
+    int monstrength=10000;
+   /* void createmonster(Graphics &graphics,SDL_Texture *texture )
     {
-        SDL_Texture *monster=graphics.loadTexture("img//monster1.png");
-            int x=rand()%SCREEN_WIDTH;
-            int y=rand()%SCREEN_HEIGHT;
-            float d=sqrt((x-SCREEN_WIDTH/2)*(x-SCREEN_WIDTH/2)+(y-SCREEN_HEIGHT/2)*(y-SCREEN_HEIGHT/2));
-            SDL_Rect mona={0,0,100,100};
-            SDL_Rect monb={x,y,100,100};
+
             graphics.blitRect2(monster,&mona,monb);
             graphics.presentScene();
-    }
+    }*/
 
 };
 
