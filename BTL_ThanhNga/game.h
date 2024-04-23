@@ -19,7 +19,7 @@ struct Game{
 
     bool levelup ()
     {
-        if(exp>=level*10)
+        if(exp>=60*(level*level))
             return true;
         else return false;
     }
@@ -28,15 +28,19 @@ struct Game{
         SDL_Rect printplace={30,30,500,25};
         float i=static_cast<float>(myblood)/FULL_BLOOD*100;
           if(i>=100) {SDL_Rect full={0,0,100,5};
-            graphics.blitRect2(texture,&full,printplace);}
-
+            graphics.blitRect2(texture,&full,&printplace);}
+          if(i<=0) {
+                SDL_Rect none={0,95,100,5};
+                 graphics.blitRect2(texture,&none,&printplace);
+            }
         for(int j=1;j<=20;j++)
         {
 
             if(100-5*(j-1)>=i&&i>100-5*j)
+
             {
                 SDL_Rect a={0,5*(j-1),100,5};
-                graphics.blitRect2(texture,&a,printplace);
+                graphics.blitRect2(texture,&a,&printplace);
                 break;
             }
         }
@@ -97,14 +101,30 @@ struct Exp
 
 struct Monster
 {
-    int monblood=700;
-    int monstrength=10000;
-   /* void createmonster(Graphics &graphics,SDL_Texture *texture )
+    int monblood=1600;
+    int monstrength=700;
+    void hienthanhmau(Graphics &graphics,SDL_Texture *texture)
     {
+        SDL_Rect printplace={600,30,500,25};
+        float i=static_cast<float>(monblood)/1700*100;
+          if(i>=100) {SDL_Rect full={0,0,100,5};
+            graphics.blitRect2(texture,&full,&printplace);}
+            if(i<=0) {
+                SDL_Rect none={0,95,100,5};
+                 graphics.blitRect2(texture,&none,&printplace);
+            }
 
-            graphics.blitRect2(monster,&mona,monb);
-            graphics.presentScene();
-    }*/
+        for(int j=1;j<=20;j++)
+        {
+
+            if(100-5*(j-1)>=i&&i>100-5*j)
+            {
+                SDL_Rect a={0,5*(j-1),100,5};
+                graphics.blitRect2(texture,&a,&printplace);
+                break;
+            }
+        }
+    }
 
 };
 

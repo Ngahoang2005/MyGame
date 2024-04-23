@@ -114,9 +114,10 @@ public :
 
         SDL_RenderCopy(renderer, texture, src, &dest);
     }
-    void blitRect2(SDL_Texture *texture,SDL_Rect *cuttedimg, SDL_Rect printplace)
+    void blitRect2(SDL_Texture *texture,SDL_Rect *cuttedimg, SDL_Rect *printplace)
     {
-        SDL_RenderCopy(renderer,texture,cuttedimg,&printplace);
+        SDL_Rect print=*printplace;
+        SDL_RenderCopy(renderer,texture,cuttedimg,&print);
 
     }
     void quit()

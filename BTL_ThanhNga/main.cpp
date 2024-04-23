@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 {
     srand(time(0));
 
-//INTRO INTRO INTRO -------------------------------------------------------------------------------------------
+//INTRO INTRO INTRO ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     Graphics graphics;
     graphics.init();
     //ẢNH NỀN INTRO
@@ -81,7 +81,116 @@ int main(int argc, char *argv[])
    SDL_DestroyTexture(PlayButton);
    IntroBackground=NULL;
    PlayButton=NULL;
-//BEFORE PLAYING--------------------------------------------------------------------------------------------------
+//HƯỚNG DẪN------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SDL_Texture *ins1=graphics.loadTexture("img//ins1.png");
+SDL_Texture *ins2=graphics.loadTexture("img//ins2.png");
+SDL_Texture *backbut=graphics.loadTexture("img//back.png");
+SDL_Texture *upbut=graphics.loadTexture("img//up.png");
+SDL_Rect cutins={0,0,748,373};
+SDL_Rect printins={0,0,1300,600};
+SDL_Rect cutbutton={0,0,50,50};
+SDL_Rect printsecondbutton1={1050,500,50,50};
+SDL_Rect printsecondbutton2={1048,498,54,54};
+SDL_Rect printbutton1={1100,500,50,50};
+SDL_Rect printbutton2={1098,498,54,54};
+bool backk=true;
+bool upp=false;
+bool isplaying=false;
+while(isplaying==false)
+{
+        if (backk==true)
+        {
+
+            bool click=false;
+            while(click==false)
+            {
+                cerr<<"T";
+                SDL_Event t;
+                SDL_PollEvent(&t);
+                int x,y;
+                SDL_GetMouseState(&x,&y);
+                if(x>=1100&&x<=1150&&y>=500&&y<=550)
+                {
+                    graphics.blitRect2(ins1,&cutins,&printins);
+                    graphics.blitRect2(upbut,&cutbutton,&printbutton2);
+                   graphics.presentScene();
+                }
+                else{
+            graphics.blitRect2(ins1,&cutins,&printins);
+            graphics.blitRect2(upbut,&cutbutton,&printbutton1);
+            graphics.presentScene();}
+                if(t.type==SDL_MOUSEBUTTONDOWN&&x>=1100&&x<=1150&&y>=500&&y<=550)
+                {
+                   graphics.blitRect2(ins1,&cutins,&printins);
+                    graphics.blitRect2(upbut,&cutbutton,&printbutton2);
+                   graphics.presentScene();
+                   backk=false;
+                   upp=true;
+                    click=true;
+                }
+            }
+        }
+        if(upp==true)
+           {
+
+            bool click=false;
+            while(click==false)
+            {
+                SDL_Event t;
+                SDL_PollEvent(&t);
+                int x,y;
+                SDL_GetMouseState(&x,&y);
+                if(x>=1100&&x<=1150&&y>=500&&y<=550)
+                {
+                    graphics.blitRect2(ins2,&cutins,&printins);
+                    graphics.blitRect2(backbut,&cutbutton,&printsecondbutton1);
+                    graphics.blitRect2(upbut,&cutbutton,&printbutton2);
+                   graphics.presentScene();
+                }
+                else if(x>=1050&&x<=1100&&y>=500&&y<=550)
+                {
+                    graphics.blitRect2(ins2,&cutins,&printins);
+                    graphics.blitRect2(backbut,&cutbutton,&printsecondbutton2);
+                    graphics.blitRect2(upbut,&cutbutton,&printbutton1);
+                   graphics.presentScene();
+                }
+                else{
+            graphics.blitRect2(ins2,&cutins,&printins);
+            graphics.blitRect2(backbut,&cutbutton,&printsecondbutton1);
+            graphics.blitRect2(upbut,&cutbutton,&printbutton1);
+            graphics.presentScene();}
+                if(t.type==SDL_MOUSEBUTTONDOWN&&x>=1050&&x<=1100&&y>=500&&y<=550)
+                {
+                    graphics.blitRect2(ins1,&cutins,&printins);
+                    graphics.blitRect2(upbut,&cutbutton,&printbutton1);
+                   graphics.presentScene();
+                   backk=true;
+                   upp=false;
+                    click=true;
+                }
+                 if(t.type==SDL_MOUSEBUTTONDOWN&&x>=1100&&x<=1150&&y>=500&&y<=550)
+                 {
+                     click=true;
+                     isplaying=true;
+                 }
+            }
+        }
+    }
+cerr<<"i";
+SDL_DestroyTexture(backbut);
+SDL_DestroyTexture(upbut);
+SDL_DestroyTexture(ins1);
+SDL_DestroyTexture(ins2);
+backbut=NULL;
+upbut=NULL;
+ins1=NULL;
+ins1=NULL;
+
+
+
+
+
+//BEFORE PLAYING-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      SDL_Texture *blue=graphics.loadTexture("img//timeback.png");
     graphics.renderTexture(blue,0,0);
      TTF_Font* font = graphics.loadFont("assets/Purisa-BoldOblique.ttf", 20);
@@ -89,16 +198,17 @@ int main(int argc, char *argv[])
      SDL_Color color = {255, 255, 0, 0};
      SDL_Color color2={0,255,255,255};
 
-      SDL_Texture *time=graphics.renderText("WARNING: BOSS WILL APPEAR IN 5 MIN",font,color);
+      SDL_Texture *time=graphics.renderText("WARNING: BOSS WILL APPEAR IN 3 MIN",font,color);
       SDL_Texture *time2=graphics.renderText("BE CAREFUL!!!!!!!!! PRESS TO CONTINUE",font,color);
       graphics.renderTexture(time,400,200);
+      SDL_Delay(800);
       graphics.renderTexture(time2,300,400);
        graphics.presentScene();
-       waitUntilKeyPressed();
+      // waitUntilKeyPressed();
        SDL_DestroyTexture(time);
        SDL_DestroyTexture(time2);
        blue=NULL;time=NULL;
-//VÀO BÀN -----------------------------------------------------------------------------------------------------------
+//VÀO BÀN ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
    //HIỆN MAP VÀ NHÂN VẬT--------------------------------
      SDL_Texture *Map=graphics.loadTexture("img//map - Copy.png");
      SDL_Texture *thanhmau=graphics.loadTexture("img//bloodtab.png");
@@ -121,7 +231,7 @@ mang[4][1]=graphics.loadTexture("img//+10%strength.png");
 
 
      Uint32 starttime=SDL_GetTicks();
-
+     Uint32 totalwaste=0;
    Sprite man; man.init(move1,MAN_FRAMES,MAN_CLIPS);
     //KHAI BÁO CÁC STRUCT TRONG GAME
         //chuột của map
@@ -132,7 +242,7 @@ origin.x=0.0;
 origin.y=0.0;
    SDL_Rect mapb={0,0,SCREEN_WIDTH,SCREEN_HEIGHT};
    SDL_Rect mapa={mouse.x,mouse.y,884,408};
-   graphics.blitRect2(Map,&mapa,mapb);
+   graphics.blitRect2(Map,&mapa,&mapb);
    Mouse mousetreasure;
         //chuột của túi báu vật
    mousetreasure.x=200; mousetreasure.y=200;
@@ -149,9 +259,9 @@ origin.y=0.0;
    //  SDL_Rect printtextoffullblood={}
 
 //HIỆN CHỮ KHI ĂN TÚI BẢO VẬT
-SDL_Texture* bloodintreasure=graphics.renderText("blood+5",font,color);
+SDL_Texture* bloodintreasure=graphics.renderText("blood+10",font,color);
 SDL_Rect bloodtreasure={-1000,-1000,70,35};
-SDL_Texture *strengthintreasure=graphics.renderText("strength+5",font,color);
+SDL_Texture *strengthintreasure=graphics.renderText("strength+10",font,color);
 SDL_Rect strengthtreasure={-1000,-1000,70,35};
          //TẠO CHUỘT CỤC EXP
         vector<Mouse> a;
@@ -164,7 +274,7 @@ SDL_Rect strengthtreasure={-1000,-1000,70,35};
             mouseofexp.x=static_cast<float>(rand()%2097-404)+origin.x;
             mouseofexp.y=static_cast<float>(rand()%1463-404)+origin.y;
             SDL_Rect rectofexp={mouseofexp.x,mouse.y,10,10};
-        graphics.blitRect2(exp, &exxp, rectofexp);
+        graphics.blitRect2(exp, &exxp, &rectofexp);
         a.push_back(mouseofexp);
         b.push_back(rectofexp);
       }
@@ -247,14 +357,14 @@ SDL_Rect cuttheskill={0,0,200,200};
 mouse.dichuyen();
 origin.tiengan();
 mapa.x=mouse.x; mapa.y=mouse.y;
-graphics.blitRect2(Map,&mapa,mapb);
+graphics.blitRect2(Map,&mapa,&mapb);
 //
 for(int i=0;i<120;i++)
 {
     a[i].tiengan();
     b[i].x=a[i].x;
     b[i].y=a[i].y;
-     graphics.blitRect2(exp, &exxp, b[i]);
+     graphics.blitRect2(exp, &exxp, &b[i]);
 }
        //TUIVANGDICHUYEN
         mousetreasure.tiengan();
@@ -268,8 +378,8 @@ graphics.render(SCREEN_WIDTH/2-150,SCREEN_HEIGHT/2-150,man,3);
 if(mantouchtreasure(&treasurerect))
         {
            int randoftreasure=rand()%2;
-           if(randoftreasure==0) {graphics.renderTexture(bloodintreasure, mousetreasure.x-10,mousetreasure.y);SDL_Delay(100);game.myblood+=5;}
-           else {graphics.renderTexture(strengthintreasure, mousetreasure.x-10,mousetreasure.y);SDL_Delay(100);game.mystrength+=5;}
+           if(randoftreasure==0) {graphics.renderTexture(bloodintreasure, mousetreasure.x-10,mousetreasure.y);SDL_Delay(100);game.myblood+=10;}
+           else {graphics.renderTexture(strengthintreasure, mousetreasure.x-10,mousetreasure.y);SDL_Delay(100);game.mystrength+=10;}
             treasurerect.x=rand()%2060-404+origin.x;
             treasurerect.y=rand()%1400-404+origin.y;
              mousetreasure.x=treasurerect.x;
@@ -287,35 +397,35 @@ if(mantouchexp(&b[i]))
     a[i].y=static_cast<float>(rand()%1463-404)+origin.y;
     b[i].x=a[i].x;
     b[i].y=a[i].y;
-    graphics.blitRect2(exp, &exxp, b[i]);
+    graphics.blitRect2(exp, &exxp, &b[i]);
 
 }
 }
 //IN CÁC THÔNG SỐ RA MÀN HÌNH
 string sucmanh=to_string(game.mystrength);
-string printsm="STRENGTH "+sucmanh;
+string printsm="STRENGTH: "+sucmanh;
 SDL_Texture *printsucmanh=graphics.renderText2(printsm,font,color2);
- graphics.renderTexture(printsucmanh,850,30);
-string fb=to_string(game.myblood);
-   string printfb= "FULL BLOOD " +fb;
-     SDL_Texture *printfullblood=graphics.renderText2(printfb,font,color2);
-     graphics.renderTexture(printfullblood,600,30);
-//hiện thanh máu
-game.hienthanhmau(graphics,thanhmau);
-cerr<<game.exp<<endl;
-if(game.level==6) click2=true;
+graphics.renderTexture(printsucmanh,850,30);
+string fb=to_string(game.FULL_BLOOD);
+string printfb= "FULL BLOOD: " +fb;
+SDL_Texture *printfullblood=graphics.renderText2(printfb,font,color2);
+graphics.renderTexture(printfullblood,600,30);
+         //hiện thanh máu
+          game.hienthanhmau(graphics,thanhmau);
+          cerr<<game.exp<<endl;
+//LEVEL UP --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if(game.levelup())
 {
+    Uint32 t1=SDL_GetTicks();
     SDL_Rect printoflevelup={100,0,1200,300};
-    graphics.blitRect2(lv,&cutthelv, printoflevelup);
-  //  SDL_Delay(1000);
+    graphics.blitRect2(lv,&cutthelv, &printoflevelup);
     SDL_Rect skilla=skill1;
     SDL_Rect skillb=skill2;
 
-      graphics.blitRect2(mang[game.level-1][0],&cuttheskill,skilla);
-      graphics.blitRect2(mang[game.level-1][1],&cuttheskill,skillb);
+      graphics.blitRect2(mang[game.level-1][0],&cuttheskill,&skilla);
+      graphics.blitRect2(mang[game.level-1][1],&cuttheskill,&skillb);
       graphics.presentScene();
-      {
+
            SDL_Event qwert;
            while(true){
         SDL_PollEvent(&qwert);
@@ -328,13 +438,13 @@ if(game.levelup())
                origin.speed*=2;
                mousetreasure.speed*=2;
                for(int i=0;i<120;i++) a[i].speed*=2;
-               break;
+                break;
                  }
                if(choose()==2&&game.level==1)
                  {
                game.FULL_BLOOD+=20;
                cerr<<game.myblood;
-               break;
+                break;
                  }
              if(choose()==1&&game.level==2)
                  {
@@ -381,32 +491,77 @@ if(game.levelup())
                  }
             }
         }
+         Uint32 t2=SDL_GetTicks();
+            Uint32 wastingtime=t2-t1;
+            totalwaste+=wastingtime;
 
-      }
-    game.level++; cerr<<game.level;
+       graphics.blitRect2(Map,&mapa,&mapb);
+            graphics.render(SCREEN_WIDTH/2-150,SCREEN_HEIGHT/2-150,man,3);
+            treasure.createtreasure(graphics,treasurebag, treasurerect);
+            for(int i=0;i<120;i++)
+            {
+            graphics.blitRect2(exp, &exxp, &b[i]);
+            }
+            game.hienthanhmau(graphics,thanhmau);
+            graphics.renderTexture(printsucmanh,850,30);
+             graphics.renderTexture(printfullblood,600,30);
+             graphics.presentScene();
+            game.level++; cerr<<game.level;
+
 }
-
-
+Uint32 current=SDL_GetTicks();
+if(current+totalwaste-starttime>=180000) {cerr<<"tgian"<<current<<endl;click2=true;}
 
 graphics.presentScene();
         //HẾT VÒNG LẶP ẤN NÚT Ở ĐÂY
 }
 }
+//FINAL-----------------------------------------------------------------------------------
+
 cerr<<"boss coming";
  graphics.presentScene();
 SDL_Rect cutbeforefinal={0,0,390,180};
 SDL_Rect printbeforefinal={0,0,1300,600};
-graphics.blitRect2(beforefinal,&cutbeforefinal,printbeforefinal);
+graphics.blitRect2(beforefinal,&cutbeforefinal,&printbeforefinal);
 graphics.presentScene();
-SDL_Delay(3000);
+//SDL_Delay(4000);
+waitUntilKeyPressed();
 Monster monster;
+SDL_Rect cuttheman={0,0,300,300};
+SDL_Rect cutthemon={0,0,840,632};
+SDL_Rect finalman1={20,100,300,300};
+SDL_Rect finalman2={10,140,320,320};
+SDL_Rect monster1={700,100,430,316};
+SDL_Rect monster2={690,900,450,450};
+SDL_Texture *finalman=graphics.loadTexture("img//finalman.png");
+SDL_Texture *finalmonster=graphics.loadTexture("img//bigmonster.png");
+SDL_Texture *finalmap=graphics.loadTexture("img//finalmap.png");
+SDL_Rect cutfinalmap={0,0,1900,1050};
+SDL_Rect printfinalmap={0,0,1300,600};
+do
+{
+     graphics.blitRect2(finalmap,&cutfinalmap,&printfinalmap);
+    graphics.blitRect2(finalman,&cuttheman,&finalman1);
+    graphics.blitRect2(finalmonster,&cutthemon,&monster1);
+   game.hienthanhmau(graphics,thanhmau);
+    monster.hienthanhmau(graphics,thanhmau);
+    graphics.presentScene();
+    monster.monblood-=game.mystrength;
+    game.myblood-=monster.monstrength;
+    graphics.blitRect2(finalmap,&cutfinalmap,&printfinalmap);
+    graphics.blitRect2(finalman,&cuttheman,&finalman1);
+    graphics.blitRect2(finalmonster,&cutthemon,&monster1);
+     game.hienthanhmau(graphics,thanhmau);
+    monster.hienthanhmau(graphics,thanhmau);
+    graphics.presentScene();
+    cerr<<game.myblood<<" "<<monster.monblood<<endl;
+    SDL_Delay(1000);
+}while(game.myblood>0&&monster.monblood>0);
+if(game.myblood<monster.monblood) cerr<<"You lose";
+else cerr<<"You win";
 
-SDL_Rect finalman1={20,300,150,150};
-SDL_Rect finalman2={10,290,170,170};
-SDL_Rect finalmon1={700,300,
-
-   waitUntilKeyPressed();
-  graphics.quit();
+waitUntilKeyPressed();
+ graphics.quit();
 
     return 0;
     }
