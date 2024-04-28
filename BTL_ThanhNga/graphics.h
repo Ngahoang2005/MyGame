@@ -182,11 +182,11 @@ public :
         SDL_Rect renderQuad = {x, y, multi*clip->w, multi*clip->h};
         SDL_RenderCopy(renderer, sprite.texture, clip, &renderQuad);
     }
-void render2(int x, int y, const Sprite& sprite) {
+/*void render2(int x, int y, const Sprite& sprite) {
         const SDL_Rect* clip = sprite.getCurrentClip();
         SDL_Rect renderQuad = {x, y, clip->w, 3*clip->h};
         SDL_RenderCopy(renderer, sprite.texture, clip, &renderQuad);
-    }
+    }*/
       Mix_Music *loadMusic(const char* path)
     {
         Mix_Music *gMusic = Mix_LoadMUS(path);

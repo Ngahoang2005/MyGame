@@ -19,7 +19,7 @@ struct Game{
 
     bool levelup ()
     {
-        if(exp>=40*(level*level))
+        if(exp>=50*(level*level))
             return true;
         else return false;
     }
@@ -91,12 +91,12 @@ struct Treasure{
 
 struct Monster
 {
-    int monblood=800*7;
-    int monstrength=300;
+    int monblood=7500;
+    int monstrength=500;
     void hienthanhmau(Graphics &graphics,SDL_Texture *texture)
     {
         SDL_Rect printplace={780,30,500,25};
-        float i=static_cast<float>(monblood)/(800*7);
+        float i=static_cast<float>(monblood)/75;
           if(i>=100) {SDL_Rect full={0,0,100,5};
             graphics.blitRect2(texture,&full,&printplace);}
              if(i>=100) {SDL_Rect full={0,0,100,5};
@@ -120,21 +120,21 @@ struct Monster
     void createxoay(int x,int y,Graphics&graphics, SDL_Texture *xoay)
     {
         SDL_Rect printxoay;
-           printxoay.w=70;
+           printxoay.w=100;
           printxoay.h=70;
 
          printxoay.x=x;
          printxoay.y=y;
 
-SDL_Rect cutxoay={0,0,2000,2000};
+SDL_Rect cutxoay={0,0,2468,2229};
        graphics.blitRect2(xoay,&cutxoay,&printxoay);
 
     }
       void createthunder(int x,int y,Graphics&graphics, SDL_Texture *thunder)
     {
-SDL_Rect cutthunder={20,0,720,2800};
+SDL_Rect cutthunder={20,0,872,3000};
 SDL_Rect printthunder;
-printthunder.w=70;
+printthunder.w=100;
 printthunder.h=500;
  printthunder.x=x;
 printthunder.y=y;
