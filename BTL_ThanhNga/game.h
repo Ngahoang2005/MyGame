@@ -91,15 +91,13 @@ struct Treasure{
 
 struct Monster
 {
-    int monblood=12000;
+    int monblood=10000;
     int monstrength=500;
     void hienthanhmau(Graphics &graphics,SDL_Texture *texture)
     {
         SDL_Rect printplace={780,30,500,25};
-        float i=static_cast<float>(monblood)/120;
+        float i=static_cast<float>(monblood)/100;
           if(i>=100) {SDL_Rect full={0,0,100,5};
-            graphics.blitRect2(texture,&full,&printplace);}
-             if(i>=100) {SDL_Rect full={0,0,100,5};
             graphics.blitRect2(texture,&full,&printplace);}
           if(i<=0) {
                 SDL_Rect none={0,95,100,5};

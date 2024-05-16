@@ -35,7 +35,7 @@
 	"game.h"
 	<ctime>
 
-1715850585 source:d:\hoc git\bigexercise\bigexercise\btl_thanhnga\main.cpp
+1715857964 source:d:\hoc git\bigexercise\bigexercise\btl_thanhnga\main.cpp
 	<iostream>
 	<cstdlib>
 	<SDL.h>
@@ -50,7 +50,7 @@
 	<chrono>
 	<thread>
 
-1715215230 d:\hoc git\bigexercise\bigexercise\btl_thanhnga\graphics.h
+1715853247 d:\hoc git\bigexercise\bigexercise\btl_thanhnga\graphics.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_mixer.h>
@@ -62,7 +62,7 @@
 	<SDL.h>
 	<SDL_image.h>
 
-1715146348 d:\hoc git\bigexercise\bigexercise\btl_thanhnga\game.h
+1715854247 d:\hoc git\bigexercise\bigexercise\btl_thanhnga\game.h
 	"graphics.h"
 	<iostream>
 	<ctime>
