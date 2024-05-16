@@ -26,6 +26,21 @@ int choose ()
     if(300<=x&&x<=500&&300<=y&&y<=500) return 1;
     if(700<=x&&x<=900&&300<=y&&y<=500) return 2;
 }
+bool swordtouchmonster(int x,int y)
+{
+    if(x>880&&x<1100&&y>250&&y<550) return true;
+    else return false;
+}
+bool swordtouchground(int x,int y)
+{
+    if(y>=550) return true;
+    else return false;
+}
+bool swordtouchwall(int x,int y)
+{
+    if(x>=1200) return true;
+    else return false;
+}
 
 #endif // _LOGIC_H__
 

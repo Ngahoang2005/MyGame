@@ -343,8 +343,8 @@ SDL_Rect cuttheskill={0,0,200,200};
 //TẠO VÒNG LẶP
 Uint32 ngung=0;
    SDL_Event e; bool click2=false;
-
-    while (!click2&&ngung<=180000) {
+/*
+    while (!click2&&ngung<=90000) {
 
        SDL_PollEvent(&e);
         switch (e.type) {
@@ -369,7 +369,7 @@ Uint32 ngung=0;
                             a[i].staystill();
                        }
               }
-             if (currentKeyStates[SDL_SCANCODE_DOWN])
+            else if (currentKeyStates[SDL_SCANCODE_DOWN])
               {
                  if(mouse.y<900){
                         mouse.turnSouth();
@@ -384,7 +384,7 @@ Uint32 ngung=0;
                  for(int i=0;i<120;i++) a[i].staystill();
                       }
                }
-              if (currentKeyStates[SDL_SCANCODE_LEFT])
+             else if (currentKeyStates[SDL_SCANCODE_LEFT])
                 {
                  if(mouse.x>0){
                         mouse.turnWest();
@@ -395,7 +395,7 @@ Uint32 ngung=0;
                         origin.staystill();
                  mousetreasure.staystill();for(int i=0;i<120;i++) a[i].staystill();}
                 }
-              if (currentKeyStates[SDL_SCANCODE_RIGHT])
+             else if (currentKeyStates[SDL_SCANCODE_RIGHT])
                 {
                 if(mouse.x<1300) {
                         mouse.turnEast();
@@ -408,6 +408,12 @@ Uint32 ngung=0;
                 mousetreasure.staystill();
                 for(int i=0;i<120;i++) a[i].staystill();}
                  }
+                else{
+                ouse.staystill();
+                        origin.staystill();
+                mousetreasure.staystill();
+                for(int i=0;i<120;i++) a[i].staystill();
+                }
 //MAP DI CHUYỂN
 mouse.dichuyen();
 origin.tiengan();
@@ -434,8 +440,8 @@ if(mantouchtreasure(&treasurerect))
         {
             graphics.play2(eat);
            int randoftreasure=rand()%2;
-           if(randoftreasure==0) {graphics.renderTexture(bloodintreasure, mousetreasure.x-10,mousetreasure.y);SDL_Delay(100);game.myblood+=20;}
-           else {graphics.renderTexture(strengthintreasure, mousetreasure.x-10,mousetreasure.y);SDL_Delay(100);game.mystrength+=20;}
+           if(randoftreasure==0) {graphics.renderTexture(bloodintreasure, mousetreasure.x-10,mousetreasure.y);SDL_Delay(100);game.myblood+=50;}
+           else {graphics.renderTexture(strengthintreasure, mousetreasure.x-10,mousetreasure.y);SDL_Delay(100);game.mystrength+=50;}
             treasurerect.x=rand()%2030-404+origin.x;
             treasurerect.y=rand()%1400-404+origin.y;
              mousetreasure.x=treasurerect.x;
@@ -468,7 +474,6 @@ SDL_Texture *printfullblood=graphics.renderText2(printfb,font,color2);
 graphics.renderTexture(printfullblood,600,30);
          //hiện thanh máu
           game.hienthanhmau(graphics,thanhmau);
-          cerr<<game.exp<<endl;
 //LEVEL UP --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 if(game.levelup())
@@ -505,7 +510,6 @@ if(game.levelup())
                if(choose()==2&&game.level==1)
                  {
                game.FULL_BLOOD+=20;
-               cerr<<game.myblood;
                 break;
                  }
              if(choose()==1&&game.level==2)
@@ -568,7 +572,7 @@ if(game.levelup())
             graphics.renderTexture(printsucmanh,850,30);
              graphics.renderTexture(printfullblood,600,30);
              graphics.presentScene();
-            game.level++; cerr<<game.level;
+            game.level++;
 
 }
 Uint32 current=SDL_GetTicks();
@@ -578,14 +582,18 @@ graphics.presentScene();
         //HẾT VÒNG LẶP ẤN NÚT Ở ĐÂY
 
 }
-}
+}*/
+
 //FINAL-----------------------------------------------------------------------------------
 //cerr<<"thoi gian:"<<ngung<<endl<<"strength"<<game.mystrength<<endl<<"blood"<<game.myblood;
-Mix_Chunk *sword=graphics.loadSound("music//sword.MP3");
+
 Mix_Chunk *soundofthunder=graphics.loadSound("music//soundofthunder.mp3");
  SDL_Texture *beforefinal=graphics.loadTexture("img//beforefinal.png");
  Mix_Chunk *countdown=graphics.loadSound("music//count.MP3");
  Mix_HaltMusic();
+ SDL_Texture *sword=graphics.loadTexture("img//sword_sprite.png");
+ Sprite sword_sprite;
+ sword_sprite.init(sword,SWORD_FRAMES,SWORD_CLIPS);
 graphics.play(finalmusic);
 graphics.play2(countdown);
 SDL_Rect cutbeforefinal={0,0,390,180};
@@ -595,7 +603,7 @@ graphics.presentScene();
 
 SDL_DestroyTexture(beforefinal);
 beforefinal=NULL;
-SDL_Delay(4000);
+//SDL_Delay(4000);
 Monster monster;
 SDL_Rect cutthemon={0,0,840,632};
 SDL_Rect printthemon={900,250,300,300};
@@ -620,6 +628,10 @@ bool yourturn=true;
 bool histurn=false;
 SDL_Texture *monturn=graphics.loadTexture("img//yourturn.png");
 SDL_Texture *myturn  =graphics.loadTexture("img//myturn.png");
+SDL_Texture *duanh=graphics.loadTexture("img//duanh.png");
+SDL_Texture *singlesword=graphics.loadTexture("img//singlesword.png");
+bool nhac;
+ double goccos;
 while(game.myblood>0&&monster.monblood>0)
 {
 
@@ -632,8 +644,8 @@ while(game.myblood>0&&monster.monblood>0)
     }
 
     if(yourturn ==true)
-    { cerr<<"your turn";
-       bool nhac=false;
+    {
+        nhac=false;
         graphics.blitRect2(finalmap,&cutfinalmap,&printfinalmap);
         graphics.render(moveoffinalman.x,moveoffinalman.y,man2,1);
         graphics.blitRect2(finalmonster,&cutthemon,&printthemon);
@@ -641,7 +653,7 @@ while(game.myblood>0&&monster.monblood>0)
         monster.hienthanhmau(graphics,thanhmau);
         graphics.renderTexture(myturn,200,200);
         graphics.presentScene();
-        Uint32 startofmyturn=SDL_GetTicks();
+      Uint32 startofmyturn=SDL_GetTicks();
      while(SDL_GetTicks()>=startofmyturn&&SDL_GetTicks()<=startofmyturn+2000)
      {
            SDL_Event e;
@@ -689,125 +701,109 @@ while(game.myblood>0&&monster.monblood>0)
         graphics.render(moveoffinalman.x,moveoffinalman.y,man2,1);
         graphics.blitRect2(finalmonster,&cutthemon,&printthemon);
         game.hienthanhmau(graphics,thanhmau);
-        monster.hienthanhmau(graphics,thanhmau); graphics.renderTexture(myturn,200,200);
+        monster.hienthanhmau(graphics,thanhmau);
+        graphics.renderTexture(myturn,200,200);
         graphics.presentScene();
       }
      }
-      while(SDL_GetTicks()>=startofmyturn+2000&&SDL_GetTicks()<=startofmyturn+2100)
+     bool isshot=false;
+
+     SDL_Rect rectofsword={static_cast<int>(moveoffinalman.x+70),static_cast<int>(moveoffinalman.y-20),100,100};
+      while(SDL_GetTicks()>startofmyturn+2000&&isshot==false)
      {
-         if(nhac==false)
-     {graphics.play2(sword);
-     monster.monblood-=game.mystrength; nhac=true;}
-       SDL_Event e;
-             SDL_PollEvent(&e);
-         if(e.type==SDL_QUIT)
-        {
-        exit(0);
-        break;
-        }
-
-       if(e.type==SDL_KEYDOWN)
-      {
-
-          const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
-             if (currentKeyStates[SDL_SCANCODE_UP])
-              {
-                        moveoffinalman.staystill();
-              }
-             if (currentKeyStates[SDL_SCANCODE_DOWN])
-              {
-                        moveoffinalman.staystill();
-
-               }
-              if (currentKeyStates[SDL_SCANCODE_LEFT])
-                {
-                 if(moveoffinalman.x>0){
-                        moveoffinalman.turnWest();
-                        }
-                 else {
-                        moveoffinalman.staystill();
-
-                }}
-              if (currentKeyStates[SDL_SCANCODE_RIGHT])
-                {
-                if(moveoffinalman.x<800) {
-                        moveoffinalman.turnEast();
-                        }
-                else {
-                        moveoffinalman.staystill();
-                        }
-                 }
-        moveoffinalman.dichuyen();
-        man2.tick();
-        graphics.blitRect2(finalmap,&cutfinalmap,&printfinalmap);
-        graphics.render(moveoffinalman.x,moveoffinalman.y,man2,1);
-        graphics.blitRect2(finalmonster,&cutthemon,&printthemon);
-        game.hienthanhmau(graphics,thanhmau);
-        monster.hienthanhmau(graphics,thanhmau); graphics.renderTexture(myturn,200,200);
-        graphics.presentScene();
-      }
-     }
-
-     while(SDL_GetTicks()>=startofmyturn+2100&&SDL_GetTicks()<=startofmyturn+3000){
-
-             SDL_Event e;
-             SDL_PollEvent(&e);
-         if(e.type==SDL_QUIT)
-        {
-        exit(0);
-        break;
-        }
-
-       if(e.type==SDL_KEYDOWN)
-      {
-
-          const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
-             if (currentKeyStates[SDL_SCANCODE_UP])
-              {
-                        moveoffinalman.staystill();
-              }
-             if (currentKeyStates[SDL_SCANCODE_DOWN])
-              {
-                        moveoffinalman.staystill();
-
-               }
-              if (currentKeyStates[SDL_SCANCODE_LEFT])
-                {
-                 if(moveoffinalman.x>0){
-                        moveoffinalman.turnWest();
-                        }
-                 else {
-                        moveoffinalman.staystill();
-
-                }}
-              if (currentKeyStates[SDL_SCANCODE_RIGHT])
-                {
-                if(moveoffinalman.x<800) {
-                        moveoffinalman.turnEast();
-                        }
-                else {
-                        moveoffinalman.staystill();
-                        }
-                 }
-        moveoffinalman.dichuyen();
-        man2.tick();
-      }
-      cerr<<"in lai";
+         sword_sprite.tick();
         graphics.blitRect2(finalmap,&cutfinalmap,&printfinalmap);
         graphics.render(moveoffinalman.x,moveoffinalman.y,man2,1);
         graphics.blitRect2(finalmonster,&cutthemon,&printthemon);
         game.hienthanhmau(graphics,thanhmau);
         monster.hienthanhmau(graphics,thanhmau);
-        graphics.presentScene();
-     }
-       while(SDL_GetTicks()>=startofmyturn+3000&&histurn==false){
-             cerr<<"den luot doi thu ";
-        yourturn =false;
-        histurn=true;
+        graphics.render(static_cast<int>(moveoffinalman.x+70),static_cast<int>(moveoffinalman.y-20),sword_sprite,1);
+         graphics.presentScene();
 
+        SDL_Event e1;
+      while (SDL_PollEvent(&e1)){
+            const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
+         if(e1.type==SDL_QUIT)
+        {
+        exit(0);
+        break;
+        }
+
+       if(e1.type==SDL_KEYDOWN)
+      {
+           isshot=true;
+                     if(sword_sprite.currentFrame==6) goccos=1.0;
+                     if(sword_sprite.currentFrame==5) goccos=0.965925;
+                     if(sword_sprite.currentFrame==4) goccos=0.866025;
+                     if(sword_sprite.currentFrame==3) goccos=0.7071067;
+                     if(sword_sprite.currentFrame==2)  goccos=0.5;
+                     if(sword_sprite.currentFrame==1) goccos=0.258819;
+                     if(sword_sprite.currentFrame==0) goccos=0;
+
+
+
+                 }
+
+
+      }
+     SDL_Delay(150);
+     }
+
+     cerr<<"T";
+     //x y tính đơn vị là m,
+     double x0=rectofsword.x;
+     double y0=rectofsword.y;
+    double v0=30000*sqrt(2);
+    double sq=1-goccos * goccos;
+    double gocsin=sqrt(sq);
+    double tmax=v0*gocsin/10;
+    cerr<<"tmax"<<tmax<<" ";
+     Uint32 tgianphikiem=SDL_GetTicks();
+   //  swordtouchwall(rectofsword.x,rectofsword.y)&&
+   bool isfly=false;
+    while(!swordtouchground(rectofsword.x,rectofsword.y)&&!swordtouchmonster(rectofsword.x,rectofsword.y)&&isfly==false){
+           double t=(SDL_GetTicks()-tgianphikiem);
+           cerr<<t<<endl;
+           rectofsword.x=v0*goccos*t/300000+x0;
+           rectofsword.y=y0-(v0*gocsin*t-5*t*t)/300000;
+           double gocnghieng;
+         if(tmax!=0)  gocnghieng=15*sword_sprite.currentFrame+(90-15*sword_sprite.currentFrame)*t/tmax;
+         if(tmax==0)  gocnghieng=15*sword_sprite.currentFrame+(90-15*sword_sprite.currentFrame)*t/sqrt(2000);
+           cerr<<gocnghieng<<endl;
+           SDL_Rect q={rectofsword.x, rectofsword.y,100,100};
+           SDL_Point center={rectofsword.x, rectofsword.y};
+
+        graphics.blitRect2(finalmap,&cutfinalmap,&printfinalmap);
+        graphics.render(moveoffinalman.x,moveoffinalman.y,man2,1);
+        graphics.blitRect2(finalmonster,&cutthemon,&printthemon);
+        game.hienthanhmau(graphics,thanhmau);
+        monster.hienthanhmau(graphics,thanhmau);
+         SDL_RenderCopyEx(graphics.renderer,singlesword,NULL,&q,gocnghieng,NULL,SDL_FLIP_NONE);
+         graphics.presentScene();
+           if(swordtouchmonster(rectofsword.x,rectofsword.y)){
+                    monster.monblood-=game.mystrength;
+                    graphics.blitRect2(finalmap,&cutfinalmap,&printfinalmap);
+                    graphics.render(moveoffinalman.x,moveoffinalman.y,man2,1);
+                    graphics.blitRect2(finalmonster,&cutthemon,&printthemon);
+                    game.hienthanhmau(graphics,thanhmau);
+                    monster.hienthanhmau(graphics,thanhmau);
+                    graphics.presentScene();
+                    isfly=true;
+           }
+           if(swordtouchground(rectofsword.x,rectofsword.y)){
+            isfly=true;
+           }
+            if(swordtouchwall(rectofsword.x,rectofsword.y)){
+            isfly=true;
        }
     }
+   //  while(SDL_GetTicks()>=startofmyturn+10000&&histurn==false){
+        yourturn =false;
+       histurn=true;
 
+
+
+    }
     if(histurn==true)
     {
          numberofthunders++;
@@ -979,7 +975,6 @@ int bansao=numberofthunders;
         exit(0);
         break;
         }
-
        if(e.type==SDL_KEYDOWN)
       {
 
@@ -1015,7 +1010,6 @@ int bansao=numberofthunders;
         man2.tick();
          //inlai
     }
-
         graphics.blitRect2(finalmap,&cutfinalmap,&printfinalmap);
         graphics.render(moveoffinalman.x,moveoffinalman.y,man2,1);
         graphics.blitRect2(finalmonster,&cutthemon,&printthemon);
@@ -1047,25 +1041,22 @@ int bansao=numberofthunders;
            monster.createthunder(b[i],40,graphics,thunder);
          }
 
-          SDL_Delay(500);
                 deletein(b,i,bansao);
+                graphics.presentScene();
+            SDL_Delay(500);
             }
-            graphics.presentScene();
         }
-
         }
-//Hậu tạo đòn
-      while(SDL_GetTicks()>startofxoay+4000)
+      while(SDL_GetTicks()>startofxoay+4000&&yourturn==false)
             {
-
         cerr<<"doi luot";
         histurn=false;
         yourturn=true;
-        break;
             }
 
     }
     }
+
 //GAME KẾT THÚC Ở ĐÂY
 graphics.presentScene();
 bool winner;

@@ -18,7 +18,17 @@ const int MAN_CLIPS[][4] = {
 };
 const int MAN_FRAMES = sizeof(MAN_CLIPS)/sizeof(int)/4;
 
+const int SWORD_CLIPS[][4] = {
+    {  0, 0, 100, 100},
+    { 100, 0 ,100, 100},
+    {  200, 0, 100, 100},
+    { 300, 0 ,100, 100},
+    {  400, 0, 100, 100},
+    { 500, 0 ,100, 100},
+    {  600, 0, 100, 100},
 
+};
+const int SWORD_FRAMES = sizeof(SWORD_CLIPS)/sizeof(int)/4;
 
 #endif
 

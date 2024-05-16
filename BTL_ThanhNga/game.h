@@ -19,7 +19,7 @@ struct Game{
 
     bool levelup ()
     {
-        if(exp>=50*(level*level))
+        if(exp>=20*(level*level))
             return true;
         else return false;
     }
@@ -91,12 +91,12 @@ struct Treasure{
 
 struct Monster
 {
-    int monblood=7500;
+    int monblood=12000;
     int monstrength=500;
     void hienthanhmau(Graphics &graphics,SDL_Texture *texture)
     {
         SDL_Rect printplace={780,30,500,25};
-        float i=static_cast<float>(monblood)/75;
+        float i=static_cast<float>(monblood)/120;
           if(i>=100) {SDL_Rect full={0,0,100,5};
             graphics.blitRect2(texture,&full,&printplace);}
              if(i>=100) {SDL_Rect full={0,0,100,5};
